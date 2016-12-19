@@ -1,15 +1,17 @@
 import React,{Component} from 'react';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+
 
 export
 class Page extends Component {
   render () {
     return (
-      <article>
-        <header>
-          <h3>{this.title}</h3>
-        </header>
-        {this.body}
-      </article>
+      <Card>
+        <CardTitle title={this.title} />
+        <CardText>
+          {this.body}
+        </CardText>
+      </Card>
     );
   }
 }

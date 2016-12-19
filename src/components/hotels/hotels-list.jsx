@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {HotelsListItem} from './hotels-list-item';
 import {API_ENDPOINT} from 'constants';
+import {List} from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
 
 export
 class HotelsList extends Component {
@@ -21,10 +23,12 @@ class HotelsList extends Component {
   render () {
     return (
       <div>
-        <h3>Hotels</h3>
-        <ul>
-          {this.state.hotels.map(hotel => <HotelsListItem {...hotel} /> )}
-        </ul>
+        <List>
+        <Subheader>Hotels</Subheader>
+        {this.state.hotels.map(hotel =>
+          <HotelsListItem {...hotel} key={hotel._id} />
+        )}
+        </List>
       </div>
     );
   }

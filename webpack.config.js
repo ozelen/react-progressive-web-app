@@ -12,17 +12,15 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
     alias: {
-      'constants': `${__dirname}/constants`,
-      'react': 'preact-compat',
-      'react-dom': 'preact-compat'
+      'constants': `${__dirname}/constants`
     }
   },
   module: {
     rules: [
       { test: /\.jsx?$/, use: ['babel-loader'], exclude: /node_modules/ },
       { test: /\.json?$/, use: ['json-loader'], exclude: /node_modules/ },
-      { test: /\.(sass|scss)$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'] },
+      { test: /\.less$/,
+        use: ['style-loader', 'css-loader', 'less-loader'] },
     ]
   },
   output: {
