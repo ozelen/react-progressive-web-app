@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {API_ENDPOINT} from 'constants';
-import {HotelCard} from './card';
+import {HotelInfo} from './hotel-info';
 
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Slider from 'material-ui/Slider';
+import {Link} from 'react-router';
 
 import Place from 'material-ui/svg-icons/maps/place';
 import Photo from 'material-ui/svg-icons/editor/insert-photo';
@@ -36,34 +37,26 @@ class HotelDetails extends Component {
   }
 
   render () {
+    const {_id} = this.state.hotel;
     return (
       <Tabs>
-        <Tab label="Info" icon={<Info/>}>
-          {HotelCard(this.state.hotel)}
-        </Tab>
-        <Tab label="Rooms" icon={<Room/>}>
-          <div>
-            <h2 style={styles.headline}>Rooms</h2>
-            <p>
-              This is another example tab.
-            </p>
-          </div>
-        </Tab>
-        <Tab label="Services" icon={<Services />}>
-        </Tab>
-        <Tab label="Gallery" icon={<Photo />}>
+        <Tab label="Info" icon={<Info/>}
+          containerElement={<Link to={`/hotels/${_id}/`} />} >
 
-          <div>
-            <h2 style={styles.headline}>Gallery</h2>
-            <p>
-              This is a third example tab.
-            </p>
-          </div>
+          {HotelInfo(this.state.hotel)}
         </Tab>
-        <Tab label="Location" icon={<Place />}>
+
+        <Tab label="Rooms" icon={<Room/>}>
+
         </Tab>
-        <Tab label="Bookings" icon={<Book />}>
-        </Tab>
+
+        <Tab label="Services" icon={<Services />}/>
+
+        <Tab label="Gallery" icon={<Photo />}/>
+        <Tab label="Location" icon={<Place />}/>
+        <Tab label="Bookings" icon={<Book />}
+             containerElement={<Link to={`/hotels/${_id}/booking`} />} />
+
       </Tabs>
     );
   }

@@ -1,2 +1,1 @@
-export * from './hotels-list';
-export * from './hotel-details';
+export * from './hotel-routes';

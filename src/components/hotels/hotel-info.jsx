@@ -7,7 +7,7 @@ import Delete from 'material-ui/svg-icons/action/delete';
 import Edit from 'material-ui/svg-icons/image/edit';
 
 export
-const HotelCard = ({name, type, city}) =>
+const HotelInfo = ({name, type, city}) =>
   <Card>
     <CardHeader
       title={name}
