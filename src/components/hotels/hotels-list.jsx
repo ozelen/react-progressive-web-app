@@ -6,6 +6,10 @@ import Subheader from 'material-ui/Subheader';
 import {Container} from 'flux/utils';
 import HotelStore from './hotel-store';
 import {dispatch} from 'common';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import {Link} from 'react-router';
+
 
 export
 class HotelsListComponent extends Component {
@@ -42,6 +46,10 @@ class HotelsListComponent extends Component {
           <HotelsListItem {...hotel.toJS()} key={hotel._id} />
         )}
         </List>
+        <FloatingActionButton secondary={true} style={{marginLeft:20}}
+          containerElement={<Link to={`/hotels/add/`} />}>
+          <ContentAdd/>
+        </FloatingActionButton>
       </div>
     );
   }
