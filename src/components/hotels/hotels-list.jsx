@@ -3,20 +3,33 @@ import {HotelsListItem} from './hotels-list-item';
 import {API_ENDPOINT} from 'constants';
 import {List} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
+import {Container} from 'flux/utils';
+import HotelStore from './hotel-store';
+import {dispatch} from 'common';
 
 export
-class HotelsList extends Component {
+class HotelsListComponent extends Component {
   constructor (props) {
     super(props);
     this.state = {
       hotels: []
-    }
+    };
+  }
+
+  static calculateState () {
+    return {
+      hotels: HotelStore.getState().toArray()
+    };
+  }
+
+  static getStores () {
+    return [HotelStore];
   }
 
   componentDidMount () {
     fetch(`${API_ENDPOINT}/hotels`).
       then(res => res.json()).
-      then(hotels => this.setState({hotels})).
+      then(data => dispatch({type: 'addHotels', data})).
       catch(console.error);
   }
 
@@ -26,10 +39,13 @@ class HotelsList extends Component {
         <List>
         <Subheader>Hotels</Subheader>
         {this.state.hotels.map(hotel =>
-          <HotelsListItem {...hotel} key={hotel._id} />
+          <HotelsListItem {...hotel.toJS()} key={hotel._id} />
         )}
         </List>
       </div>
     );
   }
 }
+
+export
+const HotelsList = Container.create(HotelsListComponent);

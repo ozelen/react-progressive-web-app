@@ -12,7 +12,8 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
     alias: {
-      'constants': `${__dirname}/constants`
+      'constants': `${__dirname}/constants`,
+      'common': `${__dirname}/src/common`
     }
   },
   module: {
