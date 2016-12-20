@@ -3,7 +3,8 @@ import TextField from 'material-ui/TextField';
 import AutoComplete from 'material-ui/AutoComplete';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
-import {API_ENDPOINT} from 'constants';
+import {modify} from './hotel-service';
+import { hashHistory } from 'react-router';
 
 const style = {
   margin: 10,
@@ -12,6 +13,12 @@ const style = {
 
 export
 class HotelForm extends Component {
+  constructor (props) {
+    super(props);
+    const {hotelId} = (this.props.params || this.props || {});
+    this.action = hotelId ? 'Edit' : 'Create';
+    this.method = hotelId ? 'put' : 'post';
+  }
   change (field) {
     return ({target}) => {
       this.setState({[field]: target.value});
@@ -19,26 +26,15 @@ class HotelForm extends Component {
   }
 
   submit () {
-    console.log("SENDING", this.state);
-    const method = 'post';
-    const body = JSON.stringify(this.state);
-    const headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    };
-    fetch(`${API_ENDPOINT}/hotels`, {
-      method, body, mode:'cors', headers}).
-      then(console.log);
+    modify(this.method)(this.state).
+      then(({_id}) => hashHistory.push('/hotels/' + _id));
   }
 
   render () {
-    const action = this.props.params.hotelId ?
-      'Edit' : 'Create';
-
     return (
       <div>
         <Paper style={style} zDepth={3} >
-          <h2>{action} Hotel</h2>
+          <h2>{this.action} Hotel</h2>
 
           <TextField hintText="Name" onChange={this.change('name')} /><br />
           <TextField hintText="Type" onChange={this.change('type')}/><br />

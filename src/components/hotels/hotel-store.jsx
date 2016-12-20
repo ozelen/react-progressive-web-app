@@ -3,7 +3,7 @@ import {HotelModel} from './hotel-model';
 import Immutable from 'immutable';
 import {AppDispatcher} from 'common';
 import {dispatch} from 'common';
-import {fetchHotels} from './hotel-service';
+import {service} from './hotel-service';
 
 class HotelStore extends ReduceStore {
   getInitialState() {
@@ -21,8 +21,8 @@ class HotelStore extends ReduceStore {
       case 'removeHotel':
         return state;
 
-      case 'fetchHotels':
-        fetchHotels();
+      case 'hotelService':
+        service(action);
         return state;
 
       default:
@@ -30,8 +30,8 @@ class HotelStore extends ReduceStore {
     }
   }
 
-  getHotel () {
-    return this.getState().find(h => id);
+  getHotel (id) {
+    return this.getState().find(({_id}) => _id === id);
   }
 }
 

@@ -13,6 +13,8 @@ import Services from 'material-ui/svg-icons/places/room-service';
 import Book from 'material-ui/svg-icons/action/bookmark';
 
 import {Container} from 'flux/utils';
+import {dispatch} from 'common';
+import HotelStore from './hotel-store';
 
 const styles = {
   headline: {
@@ -41,10 +43,8 @@ class HotelDetailsComponent extends Component {
   }
 
   componentDidMount () {
-    fetch(`${API_ENDPOINT}/hotels/${this.props.params.hotelId}`).
-      then(res => res.json()).
-      then(hotel => this.setState({hotel})).
-      catch(console.error);
+    dispatch({type: 'hotelService', operation: 'details',
+      data: {hotelId: this.props.params.hotelId}});
   }
 
   render () {
@@ -56,7 +56,7 @@ class HotelDetailsComponent extends Component {
         <Tab label="Info" icon={<Info/>}
           containerElement={<Link to={`/hotels/${_id}/`} />} >
 
-          {HotelInfo(this.state.hotel)}
+          {hotel && HotelInfo(hotel)}
         </Tab>
 
         <Tab label="Rooms" icon={<Room/>}>
