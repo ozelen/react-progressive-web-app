@@ -31,10 +31,7 @@ class HotelsListComponent extends Component {
   }
 
   componentDidMount () {
-    fetch(`${API_ENDPOINT}/hotels`).
-      then(res => res.json()).
-      then(data => dispatch({type: 'addHotels', data})).
-      catch(console.error);
+    dispatch({type: 'fetchHotels'});
   }
 
   render () {

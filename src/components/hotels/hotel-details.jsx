@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {API_ENDPOINT} from 'constants';
 import {HotelInfo} from './hotel-info';
 
 import {Tabs, Tab} from 'material-ui/Tabs';
@@ -13,6 +12,8 @@ import Info from 'material-ui/svg-icons/action/info';
 import Services from 'material-ui/svg-icons/places/room-service';
 import Book from 'material-ui/svg-icons/action/bookmark';
 
+import {Container} from 'flux/utils';
+
 const styles = {
   headline: {
     fontSize: 24,
@@ -23,10 +24,20 @@ const styles = {
 };
 
 export
-class HotelDetails extends Component {
+class HotelDetailsComponent extends Component {
   constructor (props) {
     super(props);
     this.state = {hotel: {}};
+  }
+
+  static calculateState () {
+    return {
+      getHotel: id => HotelStore.getHotel(id)
+    };
+  }
+
+  static getStores () {
+    return [HotelStore];
   }
 
   componentDidMount () {
@@ -37,7 +48,9 @@ class HotelDetails extends Component {
   }
 
   render () {
-    const {_id} = this.state.hotel;
+    const hotel = this.state.getHotel(this.props.params.hotelId);
+    const {_id} = hotel || {};
+
     return (
       <Tabs>
         <Tab label="Info" icon={<Info/>}
@@ -61,3 +74,6 @@ class HotelDetails extends Component {
     );
   }
 }
+
+export
+const HotelDetails = Container.create(HotelDetailsComponent);
