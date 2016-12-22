@@ -13,6 +13,8 @@ import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 
+import {SnackMessage} from './snack-message';
+
 const muiTheme = getMuiTheme(lightBaseTheme);
 
 injectTapEventPlugin();
@@ -52,6 +54,7 @@ class AppLayout extends Component {
         </Drawer>
 
         {this.props.children}
+        <SnackMessage />
       </div>
       </MuiThemeProvider>
     );

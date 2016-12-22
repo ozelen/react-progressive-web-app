@@ -1,5 +1,5 @@
 import {API_ENDPOINT} from 'constants';
-import {dispatch} from 'common';
+import {dispatch, emiter} from 'common';
 
 export
 const service = ({operation, data}) => ({
@@ -26,7 +26,8 @@ const modify = method => data =>
     mode: 'cors', method, headers,
     body: JSON.stringify(data)
   }).then(res => res.json()).
-  then(data => (dispatch({type: 'addHotel', data}), data));
+  then(emiter('addHotel')).
+  then(emiter('log', {key: `hotel.${method}.success`}));
 
 export const create = modify('post');
 
