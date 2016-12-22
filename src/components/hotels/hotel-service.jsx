@@ -22,10 +22,11 @@ const details = ({hotelId}) =>
 
 export
 const modify = method => data =>
-  fetch(`${API_ENDPOINT}/hotels`, {
+  fetch(`${API_ENDPOINT}/hotels${data._id ? '/'+data._id : ''}`, {
     mode: 'cors', method, headers,
     body: JSON.stringify(data)
-  }).then(res => res.json());
+  }).then(res => res.json()).
+  then(data => (dispatch({type: 'addHotel', data}), data));
 
 export const create = modify('post');
 

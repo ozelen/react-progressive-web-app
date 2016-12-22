@@ -16,6 +16,16 @@ import {Container} from 'flux/utils';
 import {dispatch} from 'common';
 import HotelStore from './hotel-store';
 
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import EditIcon from 'material-ui/svg-icons/image/edit';
+import Dialog from 'material-ui/Dialog';
+
+const fltBtnStyle = {
+  position: 'fixed',
+  bottom: 20,
+  right: 20
+};
+
 const styles = {
   headline: {
     fontSize: 24,
@@ -42,35 +52,63 @@ class HotelDetailsComponent extends Component {
     return [HotelStore];
   }
 
+  get id () {
+    const {hotelId} = (this.props.params || this.props);
+    return hotelId;
+  }
+
+  get hotel () {
+    return this.state.getHotel(this.id);
+  }
+
+  get link () {
+    return `/hotels/${this.id}`;
+  }
+
+  static get childContextTypes () {
+    return {hotel: React.PropTypes.object};
+  }
+
+  getChildContext () {
+    return {hotel: this.hotel};
+  }
+
   componentDidMount () {
     dispatch({type: 'hotelService', operation: 'details',
       data: {hotelId: this.props.params.hotelId}});
   }
 
   render () {
-    const hotel = this.state.getHotel(this.props.params.hotelId);
-    const {_id} = hotel || {};
-
     return (
-      <Tabs>
-        <Tab label="Info" icon={<Info/>}
-          containerElement={<Link to={`/hotels/${_id}/`} />} >
+      <div>
+        <Tabs>
+          <Tab label="Info" icon={<Info/>}
+            containerElement={<Link to={this.link} />} >
 
-          {hotel && HotelInfo(hotel)}
-        </Tab>
+            {this.hotel && HotelInfo(this.hotel)}
+          </Tab>
 
-        <Tab label="Rooms" icon={<Room/>}>
+          <Tab label="Rooms" icon={<Room/>}>
 
-        </Tab>
+          </Tab>
 
-        <Tab label="Services" icon={<Services />}/>
+          <Tab label="Services" icon={<Services />}/>
 
-        <Tab label="Gallery" icon={<Photo />}/>
-        <Tab label="Location" icon={<Place />}/>
-        <Tab label="Bookings" icon={<Book />}
-             containerElement={<Link to={`/hotels/${_id}/booking`} />} />
+          <Tab label="Gallery" icon={<Photo />}/>
+          <Tab label="Location" icon={<Place />}/>
+          <Tab label="Bookings" icon={<Book />}
+               containerElement={<Link to={`${this.link}/booking`} />} />
 
-      </Tabs>
+        </Tabs>
+
+          <FloatingActionButton secondary={true} style={fltBtnStyle}
+            containerElement={<Link to={`${this.link}/edit`} />}>
+            <EditIcon/>
+          </FloatingActionButton>
+
+          {this.props.children}
+
+      </div>
     );
   }
 }

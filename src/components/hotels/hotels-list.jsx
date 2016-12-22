@@ -47,6 +47,7 @@ class HotelsListComponent extends Component {
           <HotelsListItem {...hotel.toJS()} key={hotel._id} />
         )}
         </List>
+        {this.props.children}
         <FloatingActionButton secondary={true} style={fltBtnStyle}
           containerElement={<Link to={`/hotels/add/`} />}>
           <ContentAdd/>
