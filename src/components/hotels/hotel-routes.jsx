@@ -8,10 +8,11 @@ import {HotelForm} from './hotel-form';
 export
 const HotelRoutes =
   <Route>
-    <Route path='hotels' component={HotelsList}/>
-    <Route path='hotels/add' component={HotelForm}/>
+    <Route path='hotels' component={HotelsList}>
+      <Route path='add' component={HotelForm}/>
+    </Route>
     <Route path='hotels/:hotelId' component={HotelDetails}>
-      <Route path='rooms' component={HotelRooms} />
       <Route path='edit' component={HotelForm} />
+      <Route path='rooms' component={HotelRooms} />
     </Route>
   </Route>;

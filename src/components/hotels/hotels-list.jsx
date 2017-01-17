@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {HotelsListItem} from './hotels-list-item';
-import {API_ENDPOINT} from 'constants';
 import {List} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import {Container} from 'flux/utils';
@@ -10,6 +9,11 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import {Link} from 'react-router';
 
+const fltBtnStyle = {
+  position: 'fixed',
+  bottom: 20,
+  right: 20
+};
 
 export
 class HotelsListComponent extends Component {
@@ -31,10 +35,7 @@ class HotelsListComponent extends Component {
   }
 
   componentDidMount () {
-    fetch(`${API_ENDPOINT}/hotels`).
-      then(res => res.json()).
-      then(data => dispatch({type: 'addHotels', data})).
-      catch(console.error);
+    dispatch({type: 'hotelService', operation: 'list'});
   }
 
   render () {
@@ -46,7 +47,8 @@ class HotelsListComponent extends Component {
           <HotelsListItem {...hotel.toJS()} key={hotel._id} />
         )}
         </List>
-        <FloatingActionButton secondary={true} style={{marginLeft:20}}
+        {this.props.children}
+        <FloatingActionButton secondary={true} style={fltBtnStyle}
           containerElement={<Link to={`/hotels/add/`} />}>
           <ContentAdd/>
         </FloatingActionButton>
