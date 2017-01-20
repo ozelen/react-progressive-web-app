@@ -15,7 +15,7 @@ class HotelForm extends Component {
     this.action = hotelId ? 'Edit' : 'Create';
     this.method = hotelId ? 'put' : 'post';
     this.state = {
-      hotel: context.hotel || {},
+      hotel: context.hotel || {name:'',type:'',city:''},
       open:true
     };
   }

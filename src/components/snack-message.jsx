@@ -19,12 +19,6 @@ class SnackMessageComponent extends Component {
     this.state = {open: false};
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
-    console.log('SHOULD?', nextState.action.timestamp, this.state.action.timestamp);
-    return nextState.action.timestamp !==
-      this.state.action.timestamp;
-  }
-
   componentWillUpdate (nextProps, nextState) {
     this.setState({
       open: nextState.action.timestamp > Date.now() - 4000

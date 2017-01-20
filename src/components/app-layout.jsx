@@ -14,6 +14,8 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 
 import {SnackMessage} from './snack-message';
+import {UserMenu, LoginButton} from './users/user-menu';
+import FlatButton from 'material-ui/FlatButton';
 
 const muiTheme = getMuiTheme(lightBaseTheme);
 
@@ -29,19 +31,27 @@ export
 class AppLayout extends Component {
   constructor (props) {
     super(props);
-    this.state = {drawerOpen: false};
+    this.state = {
+      logged: false,
+      drawerOpen: false
+    };
   }
 
   toggleDrawer = () => this.setState({drawerOpen: !this.state.drawerOpen})
   closeDrawer  = () => this.setState({drawerOpen: false})
 
-  render() {
+  get userMenu () {
+    return this.state.logged ?
+      <UserMenu /> : <LoginButton/>;
+  }
+
+  render () {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
       <div>
         <AppBar title="Hotels Manager"
-                onTouchTap={() => this.toggleDrawer()}
-                iconClassNameRight="muidocs-icon-navigation-expand-more" />
+                onLeftIconButtonTouchTap={() => this.toggleDrawer()}
+                iconElementRight={this.userMenu} />
 
         <Drawer open={this.state.drawerOpen} docked={false} onRequestChange={drawerOpen => this.setState({drawerOpen})}>
           {Object.keys(MENU).map(url =>

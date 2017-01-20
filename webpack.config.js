@@ -12,6 +12,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
     alias: {
+      'config': `env/${process.env.NODE_ENV || 'dev'}/config`,
       'constants': `${__dirname}/constants`,
       'common': `${__dirname}/src/common`
     }
