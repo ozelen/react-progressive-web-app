@@ -4,11 +4,9 @@ import {mount, shallow} from 'enzyme';
 import TestUtils from 'react-addons-test-utils';
 import {HotelsList} from './hotels-list';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MockFetch from 'mock-fetch-api';
 import fetchMock from 'fetch-mock';
 import {dispatch} from 'common';
 
-// var MockFetch = require('mock-fetch-api');
 
 const muiTheme = getMuiTheme();
 const mountWithContext = node => mount(node, {

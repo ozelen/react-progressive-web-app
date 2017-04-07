@@ -1,7 +1,6 @@
 require('babel-register')();
 
 const mock = require('mock-require');
-// const MockFetch = require('mock-fetch-api');
 
 mock('common', `${__dirname}/src/common`);
 mock('constants', `${__dirname}/constants`);
