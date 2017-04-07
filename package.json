@@ -42,7 +42,7 @@
     "path": "^0.12.7",
     "react-addons-test-utils": "^15.4.2",
     "style-loader": "^0.13.1",
-    "webpack": "fulls1z3/webpack#v2.1.0-beta.27-harmony",
+    "webpack": "2.3.2",
     "webpack-dev-server": "2.1.0-beta.10"
   }
 }
