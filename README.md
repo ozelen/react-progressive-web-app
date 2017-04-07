@@ -10,3 +10,7 @@ npm start
 ```
 yarn global add webpack@2.1.0-beta.25 webpack-dev-server@2.1.0-beta.10
 ```
+
+```
+// yarn add mocha enzyme expect expect-enzyme react-addons-test-utils --dev
+```

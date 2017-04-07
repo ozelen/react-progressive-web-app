@@ -25,6 +25,9 @@ class HotelStore extends ReduceStore {
         service(action);
         return state;
 
+      case 'hotelsReset':
+        return this.getInitialState();
+
       default:
         return state;
     }
